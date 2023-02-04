@@ -1,3 +1,4 @@
+from rest_framework import filters
 from rest_framework.decorators import action
 from rest_framework.viewsets import ModelViewSet
 
@@ -7,6 +8,9 @@ from core.models import PontoTuristico
 
 class PontoTuristicoViewSet(ModelViewSet):
     serializer_class = PontoTuristicoSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ["id", 'nome', 'descricao']
+    lookup_field = "descricao"
 
     def get_queryset(self):
         id = self.request.query_params.get("id", None)
